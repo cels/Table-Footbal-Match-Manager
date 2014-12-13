@@ -1,0 +1,17 @@
+{
+  "name": "kicker",
+  "version": "0.0.1",
+  "description": "kicker match management",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "cf",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.10.5",
+    "mongoose": "^3.8.20",
+    "body-parser": "^1.10.0",
+    "method-override": "^2.3.0"
+  }
+}
