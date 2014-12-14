@@ -3,6 +3,8 @@ var Player = require('../models/player');
 var addPlayer = function(req, res) {
   console.log('persisting new player');
 
+  //TODO check for names
+
   var player = new Player({
     firstName: req.body.firstName,
     lastName: req.body.lastName
@@ -19,6 +21,29 @@ var addPlayer = function(req, res) {
   });
 };
 
+var getPlayers = function(req, res) {
+  console.log('returning list of all players');
 
+  Player.find(function(err, players) {
+    if(err) {
+      console.log("ERROR!", err);
+    } else {
+      res.json(players);
+    }
+  });
+};
+
+// var getPlayer = function(req, res) {
+
+// };
+
+// var updatePlayer = function(req, res) {
+
+// };
+
+// var deletePlayer = function(req, res) {
+
+// };
 
 exports.addPlayer = addPlayer;
+exports.getPlayers = getPlayers;

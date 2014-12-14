@@ -21,8 +21,7 @@ module.exports = function(app) {
   // player APIs
   router.route('/player')
     .get(function(req, res) {
-      console.log('GET request on player API');
-      res.json({message: 'GET request on player API'});
+      playerApi.getPlayers(req, res);
     })
     .post(function(req, res) {
       playerApi.addPlayer(req, res);
