@@ -62,25 +62,38 @@ var getPlayer = function(req, res) {
 };
 
 var updatePlayer = function(req, res) {
-  // TODO check for id in req ?
-  // TODO check for names in req ?
+  var id = req.params.player_id;
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
 
-  Player.findById(req.params.player_id, function(err, player) {
-    if(err) {
-      res.send(err);
-    } else {
-      player.firstName = req.body.firstName;
-      player.lastName = req.body.lastName;
+  if(!id || '' === id || !firstName || '' === firstName || !lastName || '' === lastName) {
+    var msg = 'Bad Request: Id, First name or last name missing or empty';
+    console.log(msg);
+    res.status(400).json({message: msg}).end();
+  } else {
+    Player.findById(id, function(err, player) {
+      var msg = '';
+      if(err) {
+        msg = "Internal Server Error: Error while getting player";
+        console.log(msg, err);
+        res.status(500).send(err).end();
+      } else {
+        player.firstName = firstName;
+        player.lastName = lastName;
 
-      player.save(function(err) {
-        if(err) {
-          res.send(err);
-        } else {
-          res.json({message: 'player updated'});
-        }
-      });
-    }
-  });
+        player.save(function(err) {
+          if(err) {
+            msg = "Internal Server Error: Error while writing to database";
+            console.log(msg, err);
+            res.status(500).send(err).end();
+          } else {
+            msg = 'Player updated';
+            res.json({message: msg});
+          }
+        });
+      }
+    });
+  }
 };
 
 var deletePlayer = function(req, res) {
