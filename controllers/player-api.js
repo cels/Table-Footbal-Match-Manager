@@ -1,24 +1,31 @@
 var Player = require('../models/player');
 
 var addPlayer = function(req, res) {
-  console.log('persisting new player');
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
 
-  //TODO check for names
+  if(!firstName || '' === firstName || !lastName || '' === lastName) {
+    var msg = 'Bad Request: First name or last name missing or empty';
+    console.log(msg);
+    res.status(400).send(msg).end();
+  } else {
+    var player = new Player({
+      firstName: firstName,
+      lastName: lastName
+    });
 
-  var player = new Player({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName
-  });
-
-  player.save(function(err) {
-    if(err) {
-      console.log('ERROR!!!!', err);
-      res.send(err);
-    } else {
-      console.log('player created');
-      res.json({message: 'player created'});
-    }
-  });
+    player.save(function(err) {
+      if(err) {
+        var msg = "Internal Server Error: Error while writing to database";
+        console.log(msg, err);
+        res.status(500).send(err).end();
+      } else {
+        var msg = "New player created";
+        console.log(msg);
+        res.send(msg);
+      }
+    });
+  }
 };
 
 var getPlayers = function(req, res) {
