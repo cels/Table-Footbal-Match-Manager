@@ -38,7 +38,7 @@ module.exports = function(app) {
       playerApi.updatePlayer(req, res);
     })
     .delete(function(req, res) {
-
+      playerApi.deletePlayer(req, res);
     })
 
   // game API

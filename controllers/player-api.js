@@ -67,11 +67,24 @@ var updatePlayer = function(req, res) {
   });
 };
 
-// var deletePlayer = function(req, res) {
+var deletePlayer = function(req, res) {
+  // TODO check for id in req ?
 
-// };
+  Player.remove({
+    _id: req.params.player_id
+  }, function(err, count) {
+    if(err) {
+      res.send(err);
+    } else {
+      res.send({message: 'deleted!!'});
+    }
+
+    console.log('deleted players: %s', count);
+  });
+};
 
 exports.addPlayer = addPlayer;
 exports.getPlayers = getPlayers;
 exports.getPlayer = getPlayer;
 exports.updatePlayer = updatePlayer;
+exports.deletePlayer = deletePlayer;
