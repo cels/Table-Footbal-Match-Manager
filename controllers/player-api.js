@@ -15,12 +15,13 @@ var addPlayer = function(req, res) {
     });
 
     player.save(function(err) {
+      var msg = "";
       if(err) {
-        var msg = "Internal Server Error: Error while writing to database";
+        msg = "Internal Server Error: Error while writing to database";
         console.log(msg, err);
         res.status(500).send(err).end();
       } else {
-        var msg = "New player created";
+        msg = "New player created";
         console.log(msg);
         res.json({message: msg});
       }
@@ -41,15 +42,23 @@ var getPlayers = function(req, res) {
 };
 
 var getPlayer = function(req, res) {
-  // TODO check for id in req ?
+  var id = req.params.player_id;
 
-  Player.findById(req.params.player_id, function(err, player) {
-    if(err) {
-      res.send(err);
-    } else {
-      res.json(player);
-    }
-  });
+  if(!id || "" === id) {
+    var msg = 'Bad Request: ID missing or empty';
+    console.log(msg);
+    res.status(400).json({message: msg}).end();
+  } else {
+    Player.findById(id, function(err, player) {
+      if(err) {
+        var msg = "Internal Server Error: Error while getting player";
+        console.log(msg, err);
+        res.status(500).send(err).end();
+      } else {
+        res.json(player);
+      }
+    });
+  }
 };
 
 var updatePlayer = function(req, res) {
