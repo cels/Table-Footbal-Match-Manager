@@ -2,6 +2,10 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var mongoose = require('mongoose');
+
+// connection to mongodb
+mongoose.connect('mongodb://localhost:27017/kicker');
 
 var port = 8080;
 
@@ -20,3 +24,4 @@ exports = module.exports = app;
 
 
 
+//sudo mongod --dbpath /var/lib/mongodb/
