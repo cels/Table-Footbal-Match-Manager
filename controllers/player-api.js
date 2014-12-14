@@ -7,7 +7,7 @@ var addPlayer = function(req, res) {
   if(!firstName || '' === firstName || !lastName || '' === lastName) {
     var msg = 'Bad Request: First name or last name missing or empty';
     console.log(msg);
-    res.status(400).send(msg).end();
+    res.status(400).json({message: msg}).end();
   } else {
     var player = new Player({
       firstName: firstName,
@@ -22,18 +22,18 @@ var addPlayer = function(req, res) {
       } else {
         var msg = "New player created";
         console.log(msg);
-        res.send(msg);
+        res.json({message: msg});
       }
     });
   }
 };
 
 var getPlayers = function(req, res) {
-  console.log('returning list of all players');
-
   Player.find(function(err, players) {
     if(err) {
-      console.log("ERROR!", err);
+      var msg = "Internal Server Error: Error while getting list of all players";
+      console.log(msg, err);
+      res.status(500).send(err).end();
     } else {
       res.json(players);
     }
