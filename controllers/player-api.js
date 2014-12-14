@@ -45,9 +45,27 @@ var getPlayer = function(req, res) {
   });
 };
 
-// var updatePlayer = function(req, res) {
+var updatePlayer = function(req, res) {
+  // TODO check for id in req ?
+  // TODO check for names in req ?
 
-// };
+  Player.findById(req.params.player_id, function(err, player) {
+    if(err) {
+      res.send(err);
+    } else {
+      player.firstName = req.body.firstName;
+      player.lastName = req.body.lastName;
+
+      player.save(function(err) {
+        if(err) {
+          res.send(err);
+        } else {
+          res.json({message: 'player updated'});
+        }
+      });
+    }
+  });
+};
 
 // var deletePlayer = function(req, res) {
 
@@ -56,3 +74,4 @@ var getPlayer = function(req, res) {
 exports.addPlayer = addPlayer;
 exports.getPlayers = getPlayers;
 exports.getPlayer = getPlayer;
+exports.updatePlayer = updatePlayer;

@@ -35,7 +35,7 @@ module.exports = function(app) {
       playerApi.getPlayer(req, res);
     })
     .put(function(req, res) {
-
+      playerApi.updatePlayer(req, res);
     })
     .delete(function(req, res) {
 
