@@ -6,7 +6,8 @@ var viewOptions = {
 };
 
 var playerApi = require('./player-api');
-var gameApi = require('./game-api');
+var teamApi = require('./team-api');
+var matchApi = require('./match-api');
 //statisticsAppi
 
 module.exports = function(app) {
@@ -47,7 +48,21 @@ module.exports = function(app) {
       console.log(msg);
     });
 
-  // game API
+  // team APIs
+  router.route('/team')
+    .get(function(req, res) {
+      teamApi.getTeams(req, res);
+    })
+    .post(function(req, res) {
+      teamApi.addTeam(req, res);
+    })
+    .all(function(req, res) {
+      var msg = 'Only GET and POST allowed';
+      res.status(405).json({message: msg}).end();
+      console.log(msg);
+    });
+
+  // match APIs
 
   // statistics API
 
