@@ -27,8 +27,9 @@ module.exports = function(app) {
       playerApi.addPlayer(req, res);
     })
     .all(function(req, res) {
-      console.log('not GET request on player API');
-      res.json({message: 'not GET request on player API'});
+      var msg = 'Only GET and POST allowed';
+      res.status(405).json({message: msg}).end();
+      console.log(msg);
     });
   router.route('/player/:player_id')
     .get(function(req, res) {
@@ -40,6 +41,11 @@ module.exports = function(app) {
     .delete(function(req, res) {
       playerApi.deletePlayer(req, res);
     })
+    .all(function(req, res) {
+      var msg = 'Only GET and PUT allowed';
+      res.status(405).json({message: msg}).end();
+      console.log(msg);
+    });
 
   // game API
 
