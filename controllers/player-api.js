@@ -33,9 +33,17 @@ var getPlayers = function(req, res) {
   });
 };
 
-// var getPlayer = function(req, res) {
+var getPlayer = function(req, res) {
+  // TODO check for id in req ?
 
-// };
+  Player.findById(req.params.player_id, function(err, player) {
+    if(err) {
+      res.send(err);
+    } else {
+      res.json(player);
+    }
+  });
+};
 
 // var updatePlayer = function(req, res) {
 
@@ -47,3 +55,4 @@ var getPlayers = function(req, res) {
 
 exports.addPlayer = addPlayer;
 exports.getPlayers = getPlayers;
+exports.getPlayer = getPlayer;

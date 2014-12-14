@@ -32,7 +32,7 @@ module.exports = function(app) {
     });
   router.route('/player/:player_id')
     .get(function(req, res) {
-
+      playerApi.getPlayer(req, res);
     })
     .put(function(req, res) {
 
