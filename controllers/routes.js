@@ -61,6 +61,15 @@ module.exports = function(app) {
       res.status(405).json({message: msg}).end();
       console.log(msg);
     });
+  router.route('/team/:team_id')
+    .get(function(req, res) {
+      teamApi.getTeam(req, res);
+    })
+    .all(function(req, res) {
+      var msg = 'Only GET allowed';
+      res.status(405).json({message: msg}).end();
+      console.log(msg);
+    });
 
   // match APIs
 

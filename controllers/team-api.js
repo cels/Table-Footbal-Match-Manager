@@ -40,5 +40,26 @@ var addTeam = function(req, res) {
   }
 };
 
-exports.getTeams = getTeams;
+var getTeam = function(req, res) {
+  var id = req.params.team_id;
+
+  if(!id || '' === id) {
+    var msg = 'Bad Request: ID missing or empty';
+    console.log(msg);
+    res.status(400).json({message: msg}).end();
+  } else {
+    Team.findById(id, function(err, team) {
+      if(err) {
+        var msg = "Internal Server Error: Error while getting team";
+        console.log(msg, err);
+        res.status(500).send(err).end();
+      } else {
+        res.json(team);
+      }
+    });
+  }
+};
+
 exports.addTeam = addTeam;
+exports.getTeams = getTeams;
+exports.getTeam = getTeam;
