@@ -5,24 +5,71 @@ var viewOptions = {
   dotfiles: 'deny'
 };
 
+var playerApi = require('./player-api');
+var gameApi = require('./game-api');
+//statisticsAppi
+
 module.exports = function(app) {
 
   var router = express.Router();
 
   router.use(function(req, res, next) {
-    console.log("we got a request");
+    console.log('we got a request on /api route');
     next();
   });
 
-  // add more routes here
-
-  router.route('*')
+  // player APIs
+  router.route('/player')
     .get(function(req, res) {
-      res.sendFile('index.html', viewOptions);
+      console.log('GET request on player API');
+      res.json({message: 'GET request on player API'});
+    })
+    .post(function(req, res) {
+      playerApi.addPlayer(req, res);
+    })
+    .all(function(req, res) {
+      console.log('not GET request on player API');
+      res.json({message: 'not GET request on player API'});
+    });
+  router.route('/player/:player_id')
+    .get(function(req, res) {
+
+    })
+    .put(function(req, res) {
+
+    })
+    .delete(function(req, res) {
+
+    })
+
+  // game API
+
+  // statistics API
+
+  // catch unknown APIs
+  router.route('/')
+    .all(function(req, res) {
+      console.log('we got an unknown request on /api route');
+      res.json({message: 'we got an unknown request on /api route'});
     });
 
-  app.use('*', router);
+
+
+
+  // API route
+  app.use('/api', router);
+
+  // catch all other routes
+  app.all('*', function(req, res) {
+    console.log('we got a request on an uncaught route');
+    res.json({message: 'we got a request on an uncaught route'});
+
+    // TODO show index.html
+    // res.sendFile('index.html', viewOptions);
+  });
 };
+
+
 
 
 
