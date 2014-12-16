@@ -57,6 +57,20 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player) {
     playerTwo: null
   };
 
+  $scope.goalsTeamOne = 0;
+  $scope.goalsTeamTwo = 0;
+
+  $scope.switchTeams = function() {
+    var temp1 = $scope.teamOne.playerOne;
+    var temp2 = $scope.teamOne.playerTwo;
+
+    $scope.teamOne.playerOne = $scope.teamTwo.playerOne;
+    $scope.teamOne.playerTwo = $scope.teamTwo.playerTwo;
+
+    $scope.teamTwo.playerOne = temp1;
+    $scope.teamTwo.playerTwo = temp2;
+  };
+
   Player.getPlayers()
     .success(function(data) {
       $scope.allPlayers = data;
@@ -67,36 +81,36 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player) {
     });
 
   $scope.playerFilter11 = function(element) {
-    if(element === $scope.teamOne.playerTwo
-        || element === $scope.teamTwo.playerOne
-        || element === $scope.teamTwo.playerTwo) {
+    if(element === $scope.teamOne.playerTwo ||
+        element === $scope.teamTwo.playerOne ||
+        element === $scope.teamTwo.playerTwo) {
       return false;
     }
     return true;
   };
 
   $scope.playerFilter12 = function(element) {
-    if(element === $scope.teamOne.playerOne
-        || element === $scope.teamTwo.playerOne
-        || element === $scope.teamTwo.playerTwo) {
+    if(element === $scope.teamOne.playerOne ||
+        element === $scope.teamTwo.playerOne ||
+        element === $scope.teamTwo.playerTwo) {
       return false;
     }
     return true;
   };
 
   $scope.playerFilter21 = function(element) {
-    if(element === $scope.teamOne.playerOne
-        || element === $scope.teamOne.playerTwo
-        || element === $scope.teamTwo.playerTwo) {
+    if(element === $scope.teamOne.playerOne ||
+        element === $scope.teamOne.playerTwo ||
+        element === $scope.teamTwo.playerTwo) {
       return false;
     }
     return true;
   };
 
   $scope.playerFilter22 = function(element) {
-    if(element === $scope.teamOne.playerOne
-        || element === $scope.teamOne.playerTwo
-        || element === $scope.teamTwo.playerOne) {
+    if(element === $scope.teamOne.playerOne ||
+        element === $scope.teamOne.playerTwo ||
+        element === $scope.teamTwo.playerOne) {
       return false;
     }
     return true;
