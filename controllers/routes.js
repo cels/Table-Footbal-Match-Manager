@@ -1,7 +1,7 @@
 var express = require('express');
 
 var viewOptions = {
-  root: './public/views',
+  root: './public/',
   dotfiles: 'deny'
 };
 
@@ -91,10 +91,10 @@ module.exports = function(app) {
   // catch all other routes
   app.all('*', function(req, res) {
     console.log('we got a request on an uncaught route');
-    res.json({message: 'we got a request on an uncaught route'});
+    // res.json({message: 'we got a request on an uncaught route'});
 
     // TODO show index.html
-    // res.sendFile('index.html', viewOptions);
+    res.sendFile('index.html', viewOptions);
   });
 };
 

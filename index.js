@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
 
+// add router
 require('./controllers/routes')(app);
 
 app.listen(port);

@@ -10,6 +10,8 @@ var playerSchema = new Schema({
     type: String,
     required: true
   }
+
+  //todo: create index on firstname+lastname
 });
 
 module.exports = mongoose.model('Player', playerSchema);
