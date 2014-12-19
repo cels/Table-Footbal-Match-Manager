@@ -30,14 +30,18 @@ form {
 }
 
 .matchButtonContainer {
-  width: 346px;
-  margin: 10px auto;
+  margin: 10px;
 }
 
 .matchButtonContainer button {
   display: inline-block;
   width: 150px;
-  margin: 0 10px;
+  margin: 0 10px 0 0;
+}
+
+.matchButtonContainer .submitButton {
+  float: right;
+  margin-right: 0;
 }
 
 h1 {

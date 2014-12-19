@@ -2,11 +2,10 @@
   <div id="container">
     <h1>Create new player</h1>
     <form>
-      <input type="text" placeholder="First name" ng-model="firstName" />
-      <input type="text" placeholder="Last name" ng-model="lastName" />
+      <input type="text" placeholder="Name" ng-model="name" />
       <input type="submit" value="Add new user" ng-disabled="disabled" ng-click="addPlayer()" />
-      <h1 class="errorH1" ng-show="formError">First or last name missing!</h1>
-      <h1 class="errorH1" ng-show="xhrError">First or last name missing!</h1>
+      <h1 class="errorH1" ng-show="formError">Name missing!</h1>
+      <h1 class="errorH1" ng-show="xhrError">Error while submitting your name!</h1>
       <h1 class="pendingH1" ng-show="pending">Adding user...</h1>
       <h1 class="doneH1" ng-show="done">Done!</h1>
     </form>

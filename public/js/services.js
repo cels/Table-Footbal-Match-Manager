@@ -4,10 +4,9 @@ var kickerServices = angular.module('kickerServices', []);
 
 kickerServices.factory('Player', function($http) {
     return {
-      addPlayer: function(firstName, lastName) {
+      addPlayer: function(name) {
         var player = {
-          firstName: firstName,
-          lastName: lastName
+          name: name
         }
         return $http.post('/api/player', player);
       },
@@ -17,8 +16,8 @@ kickerServices.factory('Player', function($http) {
       getPlayer: function(id) {
         return $http.get('/api/player/' + id);
       },
-      updatePlayer: function(id, firstName, lastName) {
-        return $http.put('/api/player/' + id, firstName, lastName);
+      updatePlayer: function(id, name) {
+        return $http.put('/api/player/' + id, name);
       },
       deletePlayer: function(id) {
         return $http.delete('/api/player/' + id);

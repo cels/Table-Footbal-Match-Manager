@@ -2,16 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var playerSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true
-  },
-  lastName: {
+  name: {
     type: String,
     required: true
   }
 
-  //todo: create index on firstname+lastname
+  //TODO: create index on name
 });
 
 module.exports = mongoose.model('Player', playerSchema);

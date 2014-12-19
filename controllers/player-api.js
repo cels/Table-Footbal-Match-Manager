@@ -1,17 +1,15 @@
 var Player = require('../models/player');
 
 var addPlayer = function(req, res) {
-  var firstName = req.body.firstName;
-  var lastName = req.body.lastName;
+  var name = req.body.name;
 
-  if(!firstName || '' === firstName || !lastName || '' === lastName) {
-    var msg = 'Bad Request: First name or last name missing or empty';
+  if(!name || '' === name) {
+    var msg = 'Bad Request: Name missing or empty';
     console.log(msg);
     res.status(400).json({message: msg}).end();
   } else {
     var player = new Player({
-      firstName: firstName,
-      lastName: lastName
+      name: name
     });
 
     player.save(function(err) {
@@ -63,11 +61,10 @@ var getPlayer = function(req, res) {
 
 var updatePlayer = function(req, res) {
   var id = req.params.player_id;
-  var firstName = req.body.firstName;
-  var lastName = req.body.lastName;
+  var name = req.body.name;
 
-  if(!id || '' === id || !firstName || '' === firstName || !lastName || '' === lastName) {
-    var msg = 'Bad Request: Id, First name or last name missing or empty';
+  if(!id || '' === id || !name || '' === name) {
+    var msg = 'Bad Request: Id or name missing or empty';
     console.log(msg);
     res.status(400).json({message: msg}).end();
   } else {
@@ -78,8 +75,7 @@ var updatePlayer = function(req, res) {
         console.log(msg, err);
         res.status(500).send(err).end();
       } else {
-        player.firstName = firstName;
-        player.lastName = lastName;
+        player.name = name;
 
         player.save(function(err) {
           if(err) {

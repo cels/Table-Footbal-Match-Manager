@@ -9,8 +9,7 @@ kickerControllers.controller('MainCtrl', function($scope, $http, Player) {
   });
 
 kickerControllers.controller('AddPlayerCtrl', function($scope, $http, Player) {
-  $scope.firstName = null;
-  $scope.lastName = null;
+  $scope.name = null;
 
   $scope.disabled = false;
   $scope.formError = false;
@@ -19,14 +18,14 @@ kickerControllers.controller('AddPlayerCtrl', function($scope, $http, Player) {
   $scope.done = false;
 
   $scope.addPlayer = function() {
-    if(!$scope.firstName || '' === $scope.firstName || !$scope.lastName || '' === $scope.lastName) {
+    if(!$scope.name || '' === $scope.name) {
       $scope.formError = true;
     } else {
       $scope.disabled = true;
       $scope.formError = false;
       $scope.pending = true;
 
-      Player.addPlayer($scope.firstName, $scope.lastName)
+      Player.addPlayer($scope.name)
         .success(function(data) {
           $scope.xhrError = false;
           $scope.pending = false;
