@@ -60,6 +60,15 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player) {
   $scope.goalsTeamOne = 0;
   $scope.goalsTeamTwo = 0;
 
+  Player.getPlayers()
+    .success(function(data) {
+      $scope.allPlayers = data;
+      $scope.availablePlayers = data;
+    })
+    .error(function(data, status, headers, config) {
+
+    });
+
   $scope.switchTeams = function() {
     var temp1 = $scope.teamOne.playerOne;
     var temp2 = $scope.teamOne.playerTwo;
@@ -69,16 +78,20 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player) {
 
     $scope.teamTwo.playerOne = temp1;
     $scope.teamTwo.playerTwo = temp2;
+
+    var tempScore = $scope.goalsTeamOne;
+    $scope.goalsTeamOne = $scope.goalsTeamTwo;
+    $scope.goalsTeamTwo = tempScore;
   };
 
-  Player.getPlayers()
-    .success(function(data) {
-      $scope.allPlayers = data;
-      $scope.availablePlayers = data;
-    })
-    .error(function(data, status, headers, config) {
-
-    });
+  $scope.reset = function() {
+    $scope.goalsTeamOne = 0;
+    $scope.goalsTeamTwo = 0;
+    $scope.teamOne.playerOne = null;
+    $scope.teamOne.playerTwo = null;
+    $scope.teamTwo.playerOne = null;
+    $scope.teamTwo.playerTwo = null;
+  };
 
   $scope.playerFilter11 = function(element) {
     if(element === $scope.teamOne.playerTwo ||
