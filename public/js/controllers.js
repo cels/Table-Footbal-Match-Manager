@@ -41,6 +41,14 @@ kickerControllers.controller('AddPlayerCtrl', function($scope, $http, Player) {
         });
     }
   };
+
+  $scope.resetState = function() {
+    $scope.disabled = false;
+    $scope.formError = false;
+    $scope.xhrError = false;
+    $scope.pending = false;
+    $scope.done = false;
+  };
 });
 
 kickerControllers.controller('MatchCtrl', function($scope, $http, Player) {

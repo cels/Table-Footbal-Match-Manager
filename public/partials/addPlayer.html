@@ -2,12 +2,12 @@
   <div id="container">
     <h1>Create new player</h1>
     <form>
-      <input type="text" placeholder="Name" ng-model="name" />
+      <input type="text" placeholder="Name" ng-model="name" ng-change="resetState()" />
       <input type="submit" value="Add new user" ng-disabled="disabled" ng-click="addPlayer()" />
-      <h1 class="errorH1" ng-show="formError">Name missing!</h1>
-      <h1 class="errorH1" ng-show="xhrError">Error while submitting your name!</h1>
-      <h1 class="pendingH1" ng-show="pending">Adding user...</h1>
-      <h1 class="doneH1" ng-show="done">Done!</h1>
+      <h1 class="errorH1" ng-show="formError" ng-click="resetState()">Name missing!</h1>
+      <h1 class="errorH1" ng-show="xhrError" ng-click="resetState()">Error while submitting your name!</h1>
+      <h1 class="pendingH1" ng-show="pending" ng-click="resetState()">Adding user...</h1>
+      <h1 class="doneH1" ng-show="done" ng-click="resetState()">Done!</h1>
     </form>
   </div>
 </div>
