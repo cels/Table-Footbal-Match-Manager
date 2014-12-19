@@ -39,9 +39,14 @@ form {
   margin: 0 10px 0 0;
 }
 
+.matchButtonContainer button:disabled {
+  background-color: #B8EDCF;
+}
+
 .matchButtonContainer .submitButton {
   float: right;
   margin-right: 0;
+  margin-left: 10px;
 }
 
 h1 {
