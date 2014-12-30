@@ -22,42 +22,5 @@
 </head>
 <body>
   <div ng-view></div>
-<!--
-  <div class="header-bar">HEADER</div>
-
-  <div class="content">
-    <div class="teams">
-      <div class="team-container team-white">
-        <div>Team White</div>
-        <select class="player-select" ng-model="teamOne.playerOne" ng-change="updatePlayers()" ng-options="player.firstName + ' ' + player.lastName for player in players">
-        </select>
-        <select class="player-select" ng-model="teamOne.playerTwo" ng-options="player.firstName + ' ' + player.lastName for player in players">
-        <option value="">-- none --</option>
-        </select>
-      </div>
-
-      <button>hallo</button>
-
-      <div class="team-container team-black">
-        <div>Team Black</div>
-        <select class="player-select" ng-model="teamTwo.playerOne" ng-options="player.firstName + ' ' + player.lastName for player in players">
-        </select>
-        <select class="player-select" ng-model="teamTwo.playerTwo" ng-options="player.firstName + ' ' + player.lastName for player in players | filter:activePlayers">
-          <option value="">-- none --</option>
-        </select>
-      </div>
-    <div>
-  </div>
-
--->
-  <!-- <div>
-    <ul>
-      <li ng-repeat="player in players">
-        <p>{{player.firstName}} {{player.lastName}}</p>
-      </li>
-    </ul>
-  </div>
-  <button ng-click="addPlayer('wurscht', 'sack')">Add player</button> -->
-
 </body>
 </html>
