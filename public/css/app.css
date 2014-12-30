@@ -49,6 +49,13 @@ form {
   margin-left: 10px;
 }
 
+.mainMenuButton {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+}
+
 h1 {
   background: #1BF279;
   padding: 20px 0;

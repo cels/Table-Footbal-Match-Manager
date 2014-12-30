@@ -17,6 +17,10 @@ kickerControllers.controller('AddPlayerCtrl', function($scope, $http, Player) {
   $scope.pending = false;
   $scope.done = false;
 
+  $scope.mainMenu = function() {
+    window.location.hash = '#/';
+  };
+
   $scope.addPlayer = function() {
     if(!$scope.name || '' === $scope.name) {
       $scope.formError = true;
@@ -77,6 +81,10 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player) {
     .error(function(data, status, headers, config) {
       //TODO ?
     });
+
+  $scope.mainMenu = function() {
+    window.location.hash = '#/';
+  };
 
   $scope.startGame = function() {
     $scope.started = true;
