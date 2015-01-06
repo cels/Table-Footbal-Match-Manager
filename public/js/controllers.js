@@ -197,7 +197,8 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
   $scope.matches = [];
   $scope.teamsVisible = true;
 
-  $scope.teams = [];
+  $scope.teams = {};
+  $scope.teamsArray = [];
   $scope.players = {};
   $scope.playersArray = [];
 
@@ -213,7 +214,8 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
 
       analyseData();
 
-      $scope.order('name', false);
+      $scope.order('winPct', true);
+      $scope.orderTeam('winPct', true);
     })
     .error(function(data, status, headers, config) {
       //TODO ?
@@ -225,6 +227,10 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
 
   $scope.order = function(predicate, reverse) {
     $scope.playersArray = orderBy($scope.playersArray, predicate, reverse);
+  };
+
+  $scope.orderTeam = function(predicate, reverse) {
+    $scope.teamsArray = orderBy($scope.teamsArray, predicate, reverse);
   };
 
   var addPlayerData = function(player, goalsOwn, goalsEnemy) {
@@ -264,6 +270,67 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
     }
   };
 
+  var addTeamData = function(player1, player2, goalsOwn, goalsEnemy) {
+    var n1 = player1.name;
+    var n2 = player2.name;
+
+    if(!$scope.teams.hasOwnProperty(n1) && !$scope.teams.hasOwnProperty(n2)) {
+      $scope.teams[n1] = {};
+      $scope.teams[n1][n2] = {
+        name1: n1,
+        name2: n2,
+        goalsOwn: 0,
+        goalsEnemy: 0,
+        games: 0,
+        win: 0,
+        draw: 0,
+        loss: 0,
+        winPct: 0,
+        goalsOwnPerGame: 0,
+        goalsEnemyPerGame: 0
+      };
+    }
+
+    // switch player names in case player 2 is already known
+    if(!$scope.teams.hasOwnProperty(n1)) {
+      var tmp = n1;
+      n1 = n2;
+      n2 = tmp;
+    }
+
+    if(!$scope.teams[n1].hasOwnProperty(n2)) {
+      $scope.teams[n1][n2] = {
+        name1: n1,
+        name2: n2,
+        goalsOwn: 0,
+        goalsEnemy: 0,
+        games: 0,
+        win: 0,
+        draw: 0,
+        loss: 0,
+        winPct: 0,
+        goalsOwnPerGame: 0,
+        goalsEnemyPerGame: 0
+      };
+    }
+
+    $scope.teams[n1][n2].games++;
+    $scope.teams[n1][n2].goalsOwn += goalsOwn;
+    $scope.teams[n1][n2].goalsEnemy += goalsEnemy;
+
+    if(goalsOwn === goalsEnemy) {
+      $scope.teams[n1][n2].draw++;
+    } else if(goalsOwn > goalsEnemy) {
+      $scope.teams[n1][n2].win++;
+    } else {
+      $scope.teams[n1][n2].loss++;
+    }
+
+    $scope.teams[n1][n2].winPct = ($scope.teams[n1][n2].win / $scope.teams[n1][n2].games * 100);
+    $scope.teams[n1][n2].goalsOwnPerGame = ($scope.teams[n1][n2].goalsOwn / $scope.teams[n1][n2].games);
+    $scope.teams[n1][n2].goalsEnemyPerGame = ($scope.teams[n1][n2].goalsEnemy / $scope.teams[n1][n2].games);
+  };
+
   var analyseData = function() {
     for(var i = 0, ii = $scope.matches.length; i < ii; i++) {
       var teamOne = $scope.matches[i].teamOne;
@@ -281,10 +348,24 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
       addPlayerData(p12, g1, g2);
       addPlayerData(p21, g2, g1);
       addPlayerData(p22, g2, g1);
+
+      if(p11 && p12) {
+        addTeamData(p11, p12, g1, g2);
+      }
+
+      if(p21 && p22) {
+        addTeamData(p21, p22, g2, g1);
+      }
     }
 
     for(var p in $scope.players) {
       $scope.playersArray.push($scope.players[p]);
+    }
+
+    for(var t1 in $scope.teams) {
+      for(var t2 in $scope.teams[t1]) {
+        $scope.teamsArray.push($scope.teams[t1][t2]);
+      }
     }
   };
 });

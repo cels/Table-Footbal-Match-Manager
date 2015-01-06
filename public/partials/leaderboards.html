@@ -8,13 +8,35 @@
     <div class="content-container">
       <table ng-show="teamsVisible">
         <tr>
-          <th>Team</th>
-          <th>Score</th>
-          <th>Win</th>
-          <th>Draw</th>
-          <th>Loss</th>
+          <th>Team<br />
+            <a href="" ng-click="reverse=!reverse;orderTeam('name1', reverse)">Player 1</a> /
+            <a href="" ng-click="reverse=!reverse;orderTeam('name2', reverse)">Player 2</a>
+          </th>
+          <th><a href="" ng-click="reverse=!reverse;orderTeam('games', reverse)">Games</a></th>
+          <th>Goals<br />
+            <a href="" ng-click="reverse=!reverse;orderTeam('goalsOwn', reverse)">own</a> /
+            <a href="" ng-click="reverse=!reverse;orderTeam('goalsEnemy', reverse)">opp</a>
+          </th>
+          <th>Goal rate<br />
+            <a href="" ng-click="reverse=!reverse;orderTeam('goalsOwnPerGame', reverse)">own</a> /
+            <a href="" ng-click="reverse=!reverse;orderTeam('goalsEnemyPerGame', reverse)">opp</a>
+          </th>
+          <th>
+            <a href="" ng-click="reverse=!reverse;orderTeam('win', reverse)">Win</a> :
+            <a href="" ng-click="reverse=!reverse;orderTeam('loss', reverse)">Loss</a>
+          </th>
+          <!-- <th>Draw</th> -->
+          <th><a href="" ng-click="reverse=!reverse;orderTeam('winPct', reverse)">Win rate</a></th>
         </tr>
-
+        <tr ng-repeat="team in teamsArray">
+          <td>{{team.name1}} + {{team.name2}}</td>
+          <td>{{team.games}}</td>
+          <td>{{team.goalsOwn}} : {{team.goalsEnemy}}</td>
+          <td>{{team.goalsOwnPerGame | number: 1}} : {{team.goalsEnemyPerGame | number: 1}}</td>
+          <td>{{team.win}} : {{team.loss}}</td>
+          <!-- <td>{{team.draw}}</td> -->
+          <td>{{team.winPct | number: 0}} %</td>
+        </tr>
       </table>
       <table ng-show="!teamsVisible">
         <tr>
@@ -24,7 +46,7 @@
             <a href="" ng-click="reverse=!reverse;order('goalsOwn', reverse)">own</a> /
             <a href="" ng-click="reverse=!reverse;order('goalsEnemy', reverse)">opp</a>
           </th>
-          <th>Goals/game<br />
+          <th>Goal rate<br />
             <a href="" ng-click="reverse=!reverse;order('goalsOwnPerGame', reverse)">own</a> /
             <a href="" ng-click="reverse=!reverse;order('goalsEnemyPerGame', reverse)">opp</a>
           </th>
@@ -33,7 +55,7 @@
             <a href="" ng-click="reverse=!reverse;order('loss', reverse)">Loss</a>
           </th>
           <!-- <th>Draw</th> -->
-          <th><a href="" ng-click="reverse=!reverse;order('winPct', reverse)">Win/game</a></th>
+          <th><a href="" ng-click="reverse=!reverse;order('winPct', reverse)">Win rate</a></th>
         </tr>
         <tr ng-repeat="player in playersArray">
           <td>{{player.name}}</td>
