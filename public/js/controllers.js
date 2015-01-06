@@ -176,3 +176,19 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player, Match)
     return true;
   };
 });
+
+kickerControllers.controller('MatchesCtrl', function($scope, $http, Match) {
+  $scope.matches = [];
+
+  $scope.mainMenu = function() {
+    window.location.hash = '#/';
+  };
+
+  Match.getMatches()
+    .success(function(data) {
+      $scope.matches = data;
+    })
+    .error(function(data, status, headers, config) {
+      //TODO ?
+    });
+});

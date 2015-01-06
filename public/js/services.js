@@ -29,7 +29,7 @@ kickerServices.factory('Match', function($http) {
   return {
     getMatches: function() {
       return $http.get('/api/match');
-    }
+    },
     submitScore: function(score) {
       var match = {
         match: score
