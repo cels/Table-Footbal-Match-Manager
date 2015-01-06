@@ -55,7 +55,7 @@ kickerControllers.controller('AddPlayerCtrl', function($scope, $http, Player) {
   };
 });
 
-kickerControllers.controller('MatchCtrl', function($scope, $http, Player) {
+kickerControllers.controller('MatchCtrl', function($scope, $http, Player, Match) {
   $scope.allPlayers = null;
   $scope.availablePlayers = null;
 
@@ -93,6 +93,24 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player) {
   $scope.submitScore = function() {
     //placeholde
     $scope.started = false;
+
+    var match = {
+      date: new Date(),
+      teamOne: $scope.teamOne,
+      teamTwo: $scope.teamTwo,
+      goalsTeamOne: $scope.goalsTeamOne,
+      goalsTeamTwo: $scope.goalsTeamTwo
+    }
+
+    console.log(match)
+
+    Match.submitScore(match)
+    .success(function(data) {
+      //TODO show success
+    })
+    .error(function(data, status, headers, config) {
+      // TODO show error
+    });
   };
 
   $scope.switchTeams = function() {

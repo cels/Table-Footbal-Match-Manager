@@ -12,5 +12,6 @@ var kickerApp = angular.module('kickerApp', [
     .when('/', {templateUrl: 'partials/main.html'})
     .when('/addPlayer', {templateUrl: 'partials/addPlayer.html'})
     .when('/match', {templateUrl: 'partials/match.html'})
+    .when('/matchs', {templateUrl: 'partials/matchs.html'})
     .otherwise({redirectTo: '/'});
 });

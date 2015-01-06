@@ -72,6 +72,18 @@ module.exports = function(app) {
     });
 
   // match APIs
+  router.route('/match')
+    .get(function(req, res) {
+      matchApi.getMatches(req, res);
+    })
+    .post(function(req, res) {
+      matchApi.submitScore(req, res);
+    })
+    .all(function(req, res) {
+      var msg = 'Only POST allowed';
+      res.status(405).json({message: msg}).end();
+      console.log(msg);
+    });
 
   // statistics API
 

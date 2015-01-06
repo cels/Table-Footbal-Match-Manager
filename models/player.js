@@ -7,8 +7,6 @@ var playerSchema = new Schema({
     required: true,
     unique: true
   }
-
-  //TODO: create index on name
 });
 
 playerSchema.index({name: 1, type: -1});
