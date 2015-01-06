@@ -77,7 +77,7 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player, Match)
       $scope.availablePlayers = data;
     })
     .error(function(data, status, headers, config) {
-      //TODO ?
+      alert("Error while getting list of players from server\nStatus: " + status);
     });
 
   $scope.mainMenu = function() {
@@ -181,7 +181,7 @@ kickerControllers.controller('MatchesCtrl', function($scope, $http, Match) {
       $scope.matches = data;
     })
     .error(function(data, status, headers, config) {
-      //TODO ?
+      alert("Error while getting list of matches from server\nStatus: " + status);
     });
 });
 
@@ -210,7 +210,7 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
       $scope.orderTeam('winPct', true);
     })
     .error(function(data, status, headers, config) {
-      //TODO ?
+      alert("Error while getting list of matches from server\nStatus: " + status);
     });
 
   $scope.switchTable = function() {
