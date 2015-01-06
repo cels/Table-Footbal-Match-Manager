@@ -1,0 +1,50 @@
+<div ng-controller="LeaderboardsCtrl">
+  <button class="mainMenuButton" ng-click="mainMenu()" />Main</button>
+  <div id="match-container">
+    <h1>Leaderboards</h1>
+    <div class="leaderboardButtonContainer">
+        <button ng-click="switchTable()">Teams/Players</button>
+    </div>
+    <div class="content-container">
+      <table ng-show="teamsVisible">
+        <tr>
+          <th>Team</th>
+          <th>Score</th>
+          <th>Win</th>
+          <th>Draw</th>
+          <th>Loss</th>
+        </tr>
+
+      </table>
+      <table ng-show="!teamsVisible">
+        <tr>
+          <th><a href="" ng-click="reverse=!reverse;order('name', reverse)">Player</a></th>
+          <th><a href="" ng-click="reverse=!reverse;order('games', reverse)">Games</a></th>
+          <th>Goals<br />
+            <a href="" ng-click="reverse=!reverse;order('goalsOwn', reverse)">own</a> /
+            <a href="" ng-click="reverse=!reverse;order('goalsEnemy', reverse)">opp</a>
+          </th>
+          <th>Goals/game<br />
+            <a href="" ng-click="reverse=!reverse;order('goalsOwnPerGame', reverse)">own</a> /
+            <a href="" ng-click="reverse=!reverse;order('goalsEnemyPerGame', reverse)">opp</a>
+          </th>
+          <th>
+            <a href="" ng-click="reverse=!reverse;order('win', reverse)">Win</a> :
+            <a href="" ng-click="reverse=!reverse;order('loss', reverse)">Loss</a>
+          </th>
+          <!-- <th>Draw</th> -->
+          <th><a href="" ng-click="reverse=!reverse;order('winPct', reverse)">Win/game</a></th>
+        </tr>
+        <tr ng-repeat="player in playersArray">
+          <td>{{player.name}}</td>
+          <td>{{player.games}}</td>
+          <td>{{player.goalsOwn}} : {{player.goalsEnemy}}</td>
+          <td>{{player.goalsOwnPerGame | number: 1}} : {{player.goalsEnemyPerGame | number: 1}}</td>
+          <td>{{player.win}} : {{player.loss}}</td>
+          <!-- <td>{{player.draw}}</td> -->
+          <td>{{player.winPct | number: 0}} %</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

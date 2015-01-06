@@ -2,19 +2,21 @@
   <button class="mainMenuButton" ng-click="mainMenu()" />Main</button>
   <div id="match-container">
     <h1>Match history</h1>
-    <table>
-      <tr>
-        <th>Date</th>
-        <th>Team one</th>
-        <th>Score</th>
-        <th>Team two</th>
-      </tr>
-      <tr ng-repeat="match in matches">
-        <td>{{match.date | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
-        <td>{{match.teamOne.playerOne.name}}<br />{{match.teamOne.playerTwo.name}}</td>
-        <td>{{match.goalsTeamOne}} : {{match.goalsTeamTwo}}</td>
-        <td>{{match.teamTwo.playerOne.name}}<br />{{match.teamTwo.playerTwo.name}}</td>
-      </tr>
-    </table>
+    <div class="content-container">
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Team one</th>
+          <th>Score</th>
+          <th>Team two</th>
+        </tr>
+        <tr ng-repeat="match in matches">
+          <td>{{match.date | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
+          <td>{{match.teamOne.playerOne.name}}<br />{{match.teamOne.playerTwo.name}}</td>
+          <td>{{match.goalsTeamOne}} : {{match.goalsTeamTwo}}</td>
+          <td>{{match.teamTwo.playerOne.name}}<br />{{match.teamTwo.playerTwo.name}}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>

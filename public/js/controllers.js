@@ -192,3 +192,99 @@ kickerControllers.controller('MatchesCtrl', function($scope, $http, Match) {
       //TODO ?
     });
 });
+
+kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter, Match) {
+  $scope.matches = [];
+  $scope.teamsVisible = true;
+
+  $scope.teams = [];
+  $scope.players = {};
+  $scope.playersArray = [];
+
+  var orderBy = $filter('orderBy');
+
+  $scope.mainMenu = function() {
+    window.location.hash = '#/';
+  };
+
+  Match.getMatches()
+    .success(function(data) {
+      $scope.matches = data;
+
+      analyseData();
+
+      $scope.order('name', false);
+    })
+    .error(function(data, status, headers, config) {
+      //TODO ?
+    });
+
+  $scope.switchTable = function() {
+    $scope.teamsVisible = !$scope.teamsVisible;
+  };
+
+  $scope.order = function(predicate, reverse) {
+    $scope.playersArray = orderBy($scope.playersArray, predicate, reverse);
+  };
+
+  var addPlayerData = function(player, goalsOwn, goalsEnemy) {
+    if(player) {
+      var n = player.name;
+
+      if(!$scope.players.hasOwnProperty(n)) {
+        $scope.players[n] = {
+          name: n,
+          goalsOwn: 0,
+          goalsEnemy: 0,
+          games: 0,
+          win: 0,
+          draw: 0,
+          loss: 0,
+          winPct: 0,
+          goalsOwnPerGame: 0,
+          goalsEnemyPerGame: 0
+        };
+      }
+
+      $scope.players[n].games++;
+      $scope.players[n].goalsOwn += goalsOwn;
+      $scope.players[n].goalsEnemy += goalsEnemy;
+
+      if(goalsOwn === goalsEnemy) {
+        $scope.players[n].draw++;
+      } else if(goalsOwn > goalsEnemy) {
+        $scope.players[n].win++;
+      } else {
+        $scope.players[n].loss++;
+      }
+
+      $scope.players[n].winPct = ($scope.players[n].win / $scope.players[n].games * 100);
+      $scope.players[n].goalsOwnPerGame = ($scope.players[n].goalsOwn / $scope.players[n].games);
+      $scope.players[n].goalsEnemyPerGame = ($scope.players[n].goalsEnemy / $scope.players[n].games);
+    }
+  };
+
+  var analyseData = function() {
+    for(var i = 0, ii = $scope.matches.length; i < ii; i++) {
+      var teamOne = $scope.matches[i].teamOne;
+      var teamTwo = $scope.matches[i].teamTwo;
+
+      var g1 = $scope.matches[i].goalsTeamOne;
+      var g2 = $scope.matches[i].goalsTeamTwo;
+
+      var p11 = teamOne.playerOne;
+      var p12 = teamOne.playerTwo;
+      var p21 = teamTwo.playerOne;
+      var p22 = teamTwo.playerTwo;
+
+      addPlayerData(p11, g1, g2);
+      addPlayerData(p12, g1, g2);
+      addPlayerData(p21, g2, g1);
+      addPlayerData(p22, g2, g1);
+    }
+
+    for(var p in $scope.players) {
+      $scope.playersArray.push($scope.players[p]);
+    }
+  };
+});
