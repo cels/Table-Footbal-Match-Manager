@@ -1,13 +1,13 @@
 {
   "name": "kicker",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "kicker match management",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "cf",
-  "license": "ISC",
+  "author": "cels",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.10.5",
     "mongoose": "^3.8.20",

@@ -22,7 +22,3 @@ app.listen(port);
 console.log('Listening on port ' + port);
 
 exports = module.exports = app;
-
-
-
-//sudo mongod --dbpath /var/lib/mongodb/
