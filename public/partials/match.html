@@ -5,28 +5,27 @@
     <div class="match-content">
       <div class="team">
         <h1 class="teamH1">Team White</h1>
-        <select ng-disabled="started" ng-model="teamOne.playerOne" ng-options="player.name for player in availablePlayers | filter:playerFilter11">
+        <select ng-model="teamOne.playerOne" ng-options="player.name for player in availablePlayers | filter:playerFilter11">
         </select>
-        <select ng-disabled="started" ng-model="teamOne.playerTwo" ng-options="player.name for player in availablePlayers | filter:playerFilter12">
+        <select ng-model="teamOne.playerTwo" ng-options="player.name for player in availablePlayers | filter:playerFilter12">
           <option value="">-- none --</option>
         </select>
-        <input type="number" placeholder="Goals" min="0" max="10" ng-disabled="!started" ng-model="goalsTeamOne" />
+        <input type="number" placeholder="Goals" min="0" max="10" ng-model="goalsTeamOne" />
       </div>
 
       <div class="team">
         <h1 class="teamH1">Team Black</h1>
-        <select ng-disabled="started" ng-model="teamTwo.playerOne" ng-options="player.name for player in availablePlayers | filter:playerFilter21">
+        <select ng-model="teamTwo.playerOne" ng-options="player.name for player in availablePlayers | filter:playerFilter21">
         </select>
-        <select ng-disabled="started" ng-model="teamTwo.playerTwo" ng-options="player.name for player in availablePlayers | filter:playerFilter22">
+        <select ng-model="teamTwo.playerTwo" ng-options="player.name for player in availablePlayers | filter:playerFilter22">
           <option value="">-- none --</option>
         </select>
-        <input type="number" placeholder="Goals" min="0" max="10" ng-disabled="!started" ng-model="goalsTeamTwo" />
+        <input type="number" placeholder="Goals" min="0" max="10" ng-model="goalsTeamTwo" />
       </div>
       <div class="matchButtonContainer">
         <button ng-click="switchTeams()">Switch teams</button>
         <button ng-click="reset()">Reset</button>
-        <button class="submitButton" ng-click="submitScore()" ng-disabled="!started">Submit score</button>
-        <button class="submitButton" ng-click="startGame()" ng-disabled="started">Start game</button>
+        <button class="submitButton" ng-click="submitScore()">Submit score</button>
       </div>
     </div>
   </div>

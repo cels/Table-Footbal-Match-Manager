@@ -59,8 +59,6 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player, Match)
   $scope.allPlayers = null;
   $scope.availablePlayers = null;
 
-  $scope.started = false;
-
   $scope.teamOne = {
     playerOne: null,
     playerTwo: null
@@ -86,36 +84,31 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player, Match)
     window.location.hash = '#/';
   };
 
-  $scope.startGame = function() {
-    $scope.started = true;
-  };
-
   $scope.submitScore = function() {
-    //placeholde
-    $scope.started = false;
+    if(!$scope.teamOne.playerOne || !$scope.teamTwo.playerOne) {
+      alert("At least one player is missing!");
+    } else {
+      var match = {
+        date: new Date(),
+        teamOne: $scope.teamOne,
+        teamTwo: $scope.teamTwo,
+        goalsTeamOne: $scope.goalsTeamOne,
+        goalsTeamTwo: $scope.goalsTeamTwo
+      }
 
-    var match = {
-      date: new Date(),
-      teamOne: $scope.teamOne,
-      teamTwo: $scope.teamTwo,
-      goalsTeamOne: $scope.goalsTeamOne,
-      goalsTeamTwo: $scope.goalsTeamTwo
+      console.log(match)
+
+      Match.submitScore(match)
+      .success(function(data) {
+        alert("Successfully submitted sore!");
+      })
+      .error(function(data, status, headers, config) {
+        alert("Error while submitting score!\nStatus: " + status);
+      });
     }
-
-    console.log(match)
-
-    Match.submitScore(match)
-    .success(function(data) {
-      //TODO show success
-    })
-    .error(function(data, status, headers, config) {
-      // TODO show error
-    });
   };
 
   $scope.switchTeams = function() {
-    $scope.started = false;
-
     var temp1 = $scope.teamOne.playerOne;
     var temp2 = $scope.teamOne.playerTwo;
 
@@ -137,7 +130,6 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player, Match)
     $scope.teamOne.playerTwo = null;
     $scope.teamTwo.playerOne = null;
     $scope.teamTwo.playerTwo = null;
-    $scope.started = false;
   };
 
   $scope.playerFilter11 = function(element) {
