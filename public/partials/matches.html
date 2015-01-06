@@ -10,7 +10,7 @@
           <th>Score</th>
           <th>Team two</th>
         </tr>
-        <tr ng-repeat="match in matches">
+        <tr ng-repeat="match in matches | orderBy:'date':true">
           <td>{{match.date | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
           <td>{{match.teamOne.playerOne.name}}<br />{{match.teamOne.playerTwo.name}}</td>
           <td>{{match.goalsTeamOne}} : {{match.goalsTeamTwo}}</td>
