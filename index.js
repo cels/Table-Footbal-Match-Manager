@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 // connection to mongodb
 mongoose.connect('mongodb://localhost:27017/kicker');
 
-var port = 8080;
+var port = 9999;
 
 app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
