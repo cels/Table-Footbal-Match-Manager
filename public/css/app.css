@@ -44,7 +44,7 @@ form {
 
 #match-container th {
   text-align: center;
-  background-color: #1BF279;
+  background-color: #0DDBA2;
   color: #ffffff;
 }
 
@@ -104,7 +104,7 @@ form {
 }
 
 h1 {
-  background: #1BF279;
+  background: #0DDBA2;
   padding: 20px 0;
   font-size: 150%;
   font-weight: 400;
@@ -153,7 +153,7 @@ input[type="number"] {
 
 input[type="submit"]{
   width: 100%;
-  background: #1BF279;
+  background: #0DDBA2;
   border: 0;
   padding: 20px;
   font-size: 100%;
@@ -169,7 +169,7 @@ input[type="submit"]:hover{
 
 button {
   display: inline-block;
-  background: #1BF279;
+  background: #0DDBA2;
   border: 0;
   padding: 20px;
   font-size: 100%;
