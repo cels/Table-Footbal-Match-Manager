@@ -5,7 +5,7 @@ var methodOverride = require('method-override');
 var mongoose = require('mongoose');
 
 // connection to mongodb
-mongoose.connect('mongodb://localhost:27017/kicker');
+mongoose.connect('mongodb://127.0.0.1:27017/kicker');
 
 var port = 9999;
 
