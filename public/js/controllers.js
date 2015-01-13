@@ -206,7 +206,9 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
 
       analyseData();
 
+      $scope.order('games', true);
       $scope.order('winPct', true);
+      $scope.orderTeam('games', true);
       $scope.orderTeam('winPct', true);
     })
     .error(function(data, status, headers, config) {
@@ -266,7 +268,14 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
     var n1 = player1.name;
     var n2 = player2.name;
 
-    if(!$scope.teams.hasOwnProperty(n1) && !$scope.teams.hasOwnProperty(n2)) {
+    // first sort player names lexicographically in order to prevent errorneous team matching
+    if(n2 > n1) {
+      var tmp = n1;
+      n1 = n2;
+      n2 = tmp;
+    }
+
+    if(!$scope.teams.hasOwnProperty(n1)) {
       $scope.teams[n1] = {};
       $scope.teams[n1][n2] = {
         name1: n1,
@@ -281,16 +290,7 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
         goalsOwnPerGame: 0,
         goalsEnemyPerGame: 0
       };
-    }
-
-    // switch player names in case player 2 is already known
-    if(!$scope.teams.hasOwnProperty(n1)) {
-      var tmp = n1;
-      n1 = n2;
-      n2 = tmp;
-    }
-
-    if(!$scope.teams[n1].hasOwnProperty(n2)) {
+    } else if(!$scope.teams[n1].hasOwnProperty(n2)) {
       $scope.teams[n1][n2] = {
         name1: n1,
         name2: n2,
