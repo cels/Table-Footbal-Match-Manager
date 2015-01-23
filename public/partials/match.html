@@ -5,9 +5,9 @@
     <div class="match-content">
       <div class="team">
         <h1 class="teamH1">Team White</h1>
-        <select ng-model="teamOne.playerOne" ng-options="player.name for player in availablePlayers | filter:playerFilter11">
+        <select ng-model="teamOne.playerOne" ng-options="player.name for player in availablePlayers | filter:playerFilter11 | orderBy:'name'">
         </select>
-        <select ng-model="teamOne.playerTwo" ng-options="player.name for player in availablePlayers | filter:playerFilter12">
+        <select ng-model="teamOne.playerTwo" ng-options="player.name for player in availablePlayers | filter:playerFilter12 | orderBy:'name'">
           <option value="">-- none --</option>
         </select>
         <input type="number" placeholder="Goals" min="0" max="10" ng-model="goalsTeamOne" />
@@ -15,9 +15,9 @@
 
       <div class="team">
         <h1 class="teamH1">Team Black</h1>
-        <select ng-model="teamTwo.playerOne" ng-options="player.name for player in availablePlayers | filter:playerFilter21">
+        <select ng-model="teamTwo.playerOne" ng-options="player.name for player in availablePlayers | filter:playerFilter21 | orderBy:'name'">
         </select>
-        <select ng-model="teamTwo.playerTwo" ng-options="player.name for player in availablePlayers | filter:playerFilter22">
+        <select ng-model="teamTwo.playerTwo" ng-options="player.name for player in availablePlayers | filter:playerFilter22 | orderBy:'name'">
           <option value="">-- none --</option>
         </select>
         <input type="number" placeholder="Goals" min="0" max="10" ng-model="goalsTeamTwo" />
