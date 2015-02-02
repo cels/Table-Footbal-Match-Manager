@@ -242,13 +242,15 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
           loss: 0,
           winPct: 0,
           goalsOwnPerGame: 0,
-          goalsEnemyPerGame: 0
+          goalsEnemyPerGame: 0,
+          goalRate: 0
         };
       }
 
       $scope.players[n].games++;
       $scope.players[n].goalsOwn += goalsOwn;
       $scope.players[n].goalsEnemy += goalsEnemy;
+      $scope.players[n].goalRate = $scope.players[n].goalsOwn / $scope.players[n].goalsEnemy;
 
       if(goalsOwn === goalsEnemy) {
         $scope.players[n].draw++;
@@ -288,7 +290,8 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
         loss: 0,
         winPct: 0,
         goalsOwnPerGame: 0,
-        goalsEnemyPerGame: 0
+        goalsEnemyPerGame: 0,
+        goalRate: 0
       };
     } else if(!$scope.teams[n1].hasOwnProperty(n2)) {
       $scope.teams[n1][n2] = {
@@ -302,13 +305,15 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
         loss: 0,
         winPct: 0,
         goalsOwnPerGame: 0,
-        goalsEnemyPerGame: 0
+        goalsEnemyPerGame: 0,
+        goalRate: 0
       };
     }
 
     $scope.teams[n1][n2].games++;
     $scope.teams[n1][n2].goalsOwn += goalsOwn;
     $scope.teams[n1][n2].goalsEnemy += goalsEnemy;
+    $scope.teams[n1][n2].goalRate = $scope.teams[n1][n2].goalsOwn / $scope.teams[n1][n2].goalsEnemy;
 
     if(goalsOwn === goalsEnemy) {
       $scope.teams[n1][n2].draw++;

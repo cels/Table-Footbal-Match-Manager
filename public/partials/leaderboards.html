@@ -17,7 +17,10 @@
             <a href="" ng-click="reverse=!reverse;orderTeam('goalsOwn', reverse)">own</a> /
             <a href="" ng-click="reverse=!reverse;orderTeam('goalsEnemy', reverse)">opp</a>
           </th>
-          <th>Goal rate<br />
+          <th>
+            <a href="" ng-click="reverse=!reverse;orderTeam('goalRate', reverse)">Goal rate</a>
+          </th>
+          <th>Goals per game<br />
             <a href="" ng-click="reverse=!reverse;orderTeam('goalsOwnPerGame', reverse)">own</a> /
             <a href="" ng-click="reverse=!reverse;orderTeam('goalsEnemyPerGame', reverse)">opp</a>
           </th>
@@ -32,6 +35,7 @@
           <td>{{team.name1}} + {{team.name2}}</td>
           <td>{{team.games}}</td>
           <td>{{team.goalsOwn}} : {{team.goalsEnemy}}</td>
+          <td>{{team.goalRate | number: 1}}</td>
           <td>{{team.goalsOwnPerGame | number: 1}} : {{team.goalsEnemyPerGame | number: 1}}</td>
           <td>{{team.win}} : {{team.loss}}</td>
           <!-- <td>{{team.draw}}</td> -->
@@ -46,7 +50,10 @@
             <a href="" ng-click="reverse=!reverse;order('goalsOwn', reverse)">own</a> /
             <a href="" ng-click="reverse=!reverse;order('goalsEnemy', reverse)">opp</a>
           </th>
-          <th>Goal rate<br />
+          <th>
+            <a href="" ng-click="reverse=!reverse;order('goalRate', reverse)">Goal rate</a>
+          </th>
+          <th>Goal per game<br />
             <a href="" ng-click="reverse=!reverse;order('goalsOwnPerGame', reverse)">own</a> /
             <a href="" ng-click="reverse=!reverse;order('goalsEnemyPerGame', reverse)">opp</a>
           </th>
@@ -61,6 +68,7 @@
           <td>{{player.name}}</td>
           <td>{{player.games}}</td>
           <td>{{player.goalsOwn}} : {{player.goalsEnemy}}</td>
+          <td>{{player.goalRate | number: 1}}</td>
           <td>{{player.goalsOwnPerGame | number: 1}} : {{player.goalsEnemyPerGame | number: 1}}</td>
           <td>{{player.win}} : {{player.loss}}</td>
           <!-- <td>{{player.draw}}</td> -->
