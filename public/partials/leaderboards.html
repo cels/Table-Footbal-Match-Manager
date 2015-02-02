@@ -3,7 +3,9 @@
   <div id="match-container">
     <h1>Leaderboards</h1>
     <div class="leaderboardButtonContainer">
-        <button ng-click="switchTable()">Teams/Players</button>
+        <button ng-click="showTeams()">Teams</button>
+        <button ng-click="showPlayers()">Players</button>
+        <button ng-click="showStatistics()">Statistics</button>
     </div>
     <div class="content-container">
       <table ng-show="teamsVisible">
@@ -29,6 +31,7 @@
             <a href="" ng-click="reverse=!reverse;orderTeam('loss', reverse)">Loss</a>
           </th>
           <!-- <th>Draw</th> -->
+          <th><a href="" ng-click="reverse=!reverse;orderTeam('longestKillStreak', reverse)">Longes<br />killstreak</a></th>
           <th><a href="" ng-click="reverse=!reverse;orderTeam('winPct', reverse)">Win rate</a></th>
         </tr>
         <tr ng-repeat="team in teamsArray">
@@ -39,10 +42,11 @@
           <td>{{team.goalsOwnPerGame | number: 1}} : {{team.goalsEnemyPerGame | number: 1}}</td>
           <td>{{team.win}} : {{team.loss}}</td>
           <!-- <td>{{team.draw}}</td> -->
+          <td>{{team.longestKillStreak}}</td>
           <td>{{team.winPct | number: 0}} %</td>
         </tr>
       </table>
-      <table ng-show="!teamsVisible">
+      <table ng-show="playersVisible">
         <tr>
           <th><a href="" ng-click="reverse=!reverse;order('name', reverse)">Player</a></th>
           <th><a href="" ng-click="reverse=!reverse;order('games', reverse)">Games</a></th>
@@ -62,6 +66,7 @@
             <a href="" ng-click="reverse=!reverse;order('loss', reverse)">Loss</a>
           </th>
           <!-- <th>Draw</th> -->
+          <th><a href="" ng-click="reverse=!reverse;order('longestKillStreak', reverse)">Longes<br />killstreak</a></th>
           <th><a href="" ng-click="reverse=!reverse;order('winPct', reverse)">Win rate</a></th>
         </tr>
         <tr ng-repeat="player in playersArray">
@@ -72,7 +77,31 @@
           <td>{{player.goalsOwnPerGame | number: 1}} : {{player.goalsEnemyPerGame | number: 1}}</td>
           <td>{{player.win}} : {{player.loss}}</td>
           <!-- <td>{{player.draw}}</td> -->
+          <td>{{player.longestKillStreak}}</td>
           <td>{{player.winPct | number: 0}} %</td>
+        </tr>
+      </table>
+      <table ng-show="statisticsVisible">
+        <tr>
+          <th colspan="3">Beta!!!</th>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding-left: 20px; text-align: left;">Number of matches</td>
+          <td style="padding-right: 20px; text-align: right;">{{statistics.numOfGames}}</td>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding-left: 20px; text-align: left;">Number of goals</td>
+          <td style="padding-right: 20px; text-align: right;">{{statistics.numOfGoals}}</td>
+        </tr>
+        <tr>
+          <td style="padding-left: 20px; text-align: left;">Longest killstreak (player) </td>
+          <td style="padding-left: 20px; text-align: left;">{{statistics.longestKillStreakPlayerName}}</td>
+          <td style="padding-right: 20px; text-align: right;">{{statistics.longestKillStreakPlayer}}</td>
+        </tr>
+        <tr>
+          <td style="padding-left: 20px; text-align: left;">Longest killstreak (team) </td>
+          <td style="padding-left: 20px; text-align: left;">{{statistics.longestKillStreakTeamName}}</td>
+          <td style="padding-right: 20px; text-align: right;">{{statistics.longestKillStreakTeam}}</td>
         </tr>
       </table>
     </div>

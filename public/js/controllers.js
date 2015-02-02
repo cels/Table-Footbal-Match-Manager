@@ -188,11 +188,21 @@ kickerControllers.controller('MatchesCtrl', function($scope, $http, Match) {
 kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter, Match) {
   $scope.matches = [];
   $scope.teamsVisible = true;
+  $scope.playersVisible = false;
+  $scope.statisticsVisible = false;
 
   $scope.teams = {};
   $scope.teamsArray = [];
   $scope.players = {};
   $scope.playersArray = [];
+  $scope.statistics = {
+    numOfGames: 0,
+    numOfGoals: 0,
+    longestKillStreakPlayer: 0,
+    longestKillStreakPlayerName: [],
+    longestKillStreakTeam: 0,
+    longestKillStreakTeamNames: []
+  };
 
   var orderBy = $filter('orderBy');
 
@@ -215,8 +225,22 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
       alert("Error while getting list of matches from server\nStatus: " + status);
     });
 
-  $scope.switchTable = function() {
-    $scope.teamsVisible = !$scope.teamsVisible;
+  $scope.showTeams = function() {
+    $scope.teamsVisible = true;
+    $scope.playersVisible = false;
+    $scope.statisticsVisible = false;
+  };
+
+  $scope.showPlayers = function() {
+    $scope.teamsVisible = false;
+    $scope.playersVisible = true;
+    $scope.statisticsVisible = false;
+  };
+
+  $scope.showStatistics = function() {
+    $scope.teamsVisible = false;
+    $scope.playersVisible = false;
+    $scope.statisticsVisible = true;
   };
 
   $scope.order = function(predicate, reverse) {
@@ -243,7 +267,9 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
           winPct: 0,
           goalsOwnPerGame: 0,
           goalsEnemyPerGame: 0,
-          goalRate: 0
+          goalRate: 0,
+          killStreak: 0,
+          longestKillStreak: 0
         };
       }
 
@@ -256,8 +282,23 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
         $scope.players[n].draw++;
       } else if(goalsOwn > goalsEnemy) {
         $scope.players[n].win++;
+        $scope.players[n].killStreak++;
+
+        if($scope.players[n].killStreak > $scope.players[n].longestKillStreak) {
+          $scope.players[n].longestKillStreak = $scope.players[n].killStreak;
+
+          if($scope.players[n].longestKillStreak > $scope.statistics.longestKillStreakPlayer) {
+            $scope.statistics.longestKillStreakPlayer = $scope.players[n].longestKillStreak;
+            $scope.statistics.longestKillStreakPlayerName = [];
+            $scope.statistics.longestKillStreakPlayerName.push($scope.players[n].name);
+          } else if($scope.players[n].longestKillStreak === $scope.statistics.longestKillStreakPlayer
+            && -1 === $scope.statistics.longestKillStreakPlayerName.indexOf($scope.players[n])) {
+            $scope.statistics.longestKillStreakPlayerName.push($scope.players[n].name);
+          }
+        }
       } else {
         $scope.players[n].loss++;
+        $scope.players[n].killStreak = 0;
       }
 
       $scope.players[n].winPct = ($scope.players[n].win / $scope.players[n].games * 100);
@@ -291,7 +332,9 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
         winPct: 0,
         goalsOwnPerGame: 0,
         goalsEnemyPerGame: 0,
-        goalRate: 0
+        goalRate: 0,
+        killStreak: 0,
+        longestKillStreak: 0
       };
     } else if(!$scope.teams[n1].hasOwnProperty(n2)) {
       $scope.teams[n1][n2] = {
@@ -306,7 +349,9 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
         winPct: 0,
         goalsOwnPerGame: 0,
         goalsEnemyPerGame: 0,
-        goalRate: 0
+        goalRate: 0,
+        killStreak: 0,
+        longestKillStreak: 0
       };
     }
 
@@ -319,8 +364,23 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
       $scope.teams[n1][n2].draw++;
     } else if(goalsOwn > goalsEnemy) {
       $scope.teams[n1][n2].win++;
+      $scope.teams[n1][n2].killStreak++;
+
+      if($scope.teams[n1][n2].killStreak > $scope.teams[n1][n2].longestKillStreak) {
+        $scope.teams[n1][n2].longestKillStreak = $scope.teams[n1][n2].killStreak;
+
+        if($scope.teams[n1][n2].longestKillStreak > $scope.statistics.longestKillStreakTeam) {
+            $scope.statistics.longestKillStreakTeam = $scope.teams[n1][n2].longestKillStreak;
+            $scope.statistics.longestKillStreakTeamName = [];
+            $scope.statistics.longestKillStreakTeamName.push($scope.teams[n1][n2].name1 + " + " + $scope.teams[n1][n2].name2);
+          } else if($scope.teams[n1][n2].longestKillStreak === $scope.statistics.longestKillStreakTeam
+            && -1 === $scope.statistics.longestKillStreakTeamName.indexOf($scope.teams[n1][n2])) {
+            $scope.statistics.longestKillStreakTeamName.push($scope.teams[n1][n2].name1 + " + " + $scope.teams[n1][n2].name2);
+          }
+      }
     } else {
       $scope.teams[n1][n2].loss++;
+      $scope.teams[n1][n2].killStreak = 0;
     }
 
     $scope.teams[n1][n2].winPct = ($scope.teams[n1][n2].win / $scope.teams[n1][n2].games * 100);
@@ -340,6 +400,9 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
       var p12 = teamOne.playerTwo;
       var p21 = teamTwo.playerOne;
       var p22 = teamTwo.playerTwo;
+
+      $scope.statistics.numOfGames++;
+      $scope.statistics.numOfGoals += (g1 + g2);
 
       addPlayerData(p11, g1, g2);
       addPlayerData(p12, g1, g2);
