@@ -1,5 +1,10 @@
 <div ng-controller="AddPlayerCtrl">
-  <button class="mainMenuButton" ng-click="mainMenu()" />Main</button>
+  <div class="mainMenuContainer">
+    <button ng-click="openPartial('match')" />New match</button>
+    <button ng-click="openPartial('leaderboards')" />Leaderboards</button>
+    <button ng-click="openPartial('matches')" />Match history</button>
+    <button ng-click="openPartial('addPlayer')" />Add new player</button>
+  </div>
   <div id="container">
     <h1>Create new player</h1>
     <form>

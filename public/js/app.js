@@ -9,10 +9,9 @@ var kickerApp = angular.module('kickerApp', [
 
 .config(function($routeProvider) {
   $routeProvider
-    .when('/', {templateUrl: 'partials/main.html'})
     .when('/addPlayer', {templateUrl: 'partials/addPlayer.html'})
     .when('/match', {templateUrl: 'partials/match.html'})
     .when('/matches', {templateUrl: 'partials/matches.html'})
     .when('/leaderboards', {templateUrl: 'partials/leaderboards.html'})
-    .otherwise({redirectTo: '/'});
+    .otherwise({redirectTo: '/leaderboards'});
 });

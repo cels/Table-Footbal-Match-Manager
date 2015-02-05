@@ -2,12 +2,6 @@
 
 var kickerControllers = angular.module('kickerControllers', []);
 
-kickerControllers.controller('MainCtrl', function($scope, $http, Player) {
-    $scope.submit = function(target) {
-      window.location.hash = '#/' + target;
-    };
-  });
-
 kickerControllers.controller('AddPlayerCtrl', function($scope, $http, Player) {
   $scope.name = null;
 
@@ -17,8 +11,8 @@ kickerControllers.controller('AddPlayerCtrl', function($scope, $http, Player) {
   $scope.pending = false;
   $scope.done = false;
 
-  $scope.mainMenu = function() {
-    window.location.hash = '#/';
+  $scope.openPartial = function(partial) {
+    window.location.hash = '#/' + partial;
   };
 
   $scope.addPlayer = function() {
@@ -80,8 +74,8 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player, Match)
       alert("Error while getting list of players from server\nStatus: " + status);
     });
 
-  $scope.mainMenu = function() {
-    window.location.hash = '#/';
+  $scope.openPartial = function(partial) {
+    window.location.hash = '#/' + partial;
   };
 
   $scope.submitScore = function() {
@@ -172,8 +166,8 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player, Match)
 kickerControllers.controller('MatchesCtrl', function($scope, $http, Match) {
   $scope.matches = [];
 
-  $scope.mainMenu = function() {
-    window.location.hash = '#/';
+  $scope.openPartial = function(partial) {
+    window.location.hash = '#/' + partial;
   };
 
   Match.getMatches()
@@ -206,8 +200,8 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
 
   var orderBy = $filter('orderBy');
 
-  $scope.mainMenu = function() {
-    window.location.hash = '#/';
+  $scope.openPartial = function(partial) {
+    window.location.hash = '#/' + partial;
   };
 
   Match.getMatches()
