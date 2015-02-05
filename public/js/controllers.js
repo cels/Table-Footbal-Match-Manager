@@ -195,7 +195,9 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
     longestKillStreakPlayer: 0,
     longestKillStreakPlayerName: [],
     longestKillStreakTeam: 0,
-    longestKillStreakTeamNames: []
+    longestKillStreakTeamNames: [],
+    mostWonByZero: 0,
+    mostWonByZeroName: []
   };
 
   var orderBy = $filter('orderBy');
@@ -263,7 +265,8 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
           goalsEnemyPerGame: 0,
           goalRate: 0,
           killStreak: 0,
-          longestKillStreak: 0
+          longestKillStreak: 0,
+          wonByZero: 0
         };
       }
 
@@ -277,6 +280,10 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
       } else if(goalsOwn > goalsEnemy) {
         $scope.players[n].win++;
         $scope.players[n].killStreak++;
+
+        if(goalsEnemy === 0) {
+          $scope.players[n].wonByZero++;
+        }
 
         if($scope.players[n].killStreak > $scope.players[n].longestKillStreak) {
           $scope.players[n].longestKillStreak = $scope.players[n].killStreak;
@@ -328,7 +335,8 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
         goalsEnemyPerGame: 0,
         goalRate: 0,
         killStreak: 0,
-        longestKillStreak: 0
+        longestKillStreak: 0,
+        wonByZero: 0
       };
     } else if(!$scope.teams[n1].hasOwnProperty(n2)) {
       $scope.teams[n1][n2] = {
@@ -345,7 +353,8 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
         goalsEnemyPerGame: 0,
         goalRate: 0,
         killStreak: 0,
-        longestKillStreak: 0
+        longestKillStreak: 0,
+        wonByZero: 0
       };
     }
 
@@ -360,17 +369,30 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
       $scope.teams[n1][n2].win++;
       $scope.teams[n1][n2].killStreak++;
 
+      if(goalsEnemy === 0) {
+        $scope.teams[n1][n2].wonByZero++;
+
+        if($scope.teams[n1][n2].wonByZero > $scope.statistics.mostWonByZero) {
+          $scope.statistics.mostWonByZero = $scope.teams[n1][n2].wonByZero;
+          $scope.statistics.mostWonByZeroName = [];
+          $scope.statistics.mostWonByZeroName.push($scope.teams[n1][n2].name1 + " + " + $scope.teams[n1][n2].name2);
+        } else if($scope.teams[n1][n2].wonByZero === $scope.statistics.mostWonByZero
+          && -1 === $scope.statistics.mostWonByZeroName.indexOf($scope.teams[n1][n2])) {
+          $scope.statistics.mostWonByZeroName.push($scope.teams[n1][n2].name1 + " + " + $scope.teams[n1][n2].name2);
+        }
+      }
+
       if($scope.teams[n1][n2].killStreak > $scope.teams[n1][n2].longestKillStreak) {
         $scope.teams[n1][n2].longestKillStreak = $scope.teams[n1][n2].killStreak;
 
         if($scope.teams[n1][n2].longestKillStreak > $scope.statistics.longestKillStreakTeam) {
-            $scope.statistics.longestKillStreakTeam = $scope.teams[n1][n2].longestKillStreak;
-            $scope.statistics.longestKillStreakTeamName = [];
-            $scope.statistics.longestKillStreakTeamName.push($scope.teams[n1][n2].name1 + " + " + $scope.teams[n1][n2].name2);
-          } else if($scope.teams[n1][n2].longestKillStreak === $scope.statistics.longestKillStreakTeam
-            && -1 === $scope.statistics.longestKillStreakTeamName.indexOf($scope.teams[n1][n2])) {
-            $scope.statistics.longestKillStreakTeamName.push($scope.teams[n1][n2].name1 + " + " + $scope.teams[n1][n2].name2);
-          }
+          $scope.statistics.longestKillStreakTeam = $scope.teams[n1][n2].longestKillStreak;
+          $scope.statistics.longestKillStreakTeamName = [];
+          $scope.statistics.longestKillStreakTeamName.push($scope.teams[n1][n2].name1 + " + " + $scope.teams[n1][n2].name2);
+        } else if($scope.teams[n1][n2].longestKillStreak === $scope.statistics.longestKillStreakTeam
+          && -1 === $scope.statistics.longestKillStreakTeamName.indexOf($scope.teams[n1][n2])) {
+          $scope.statistics.longestKillStreakTeamName.push($scope.teams[n1][n2].name1 + " + " + $scope.teams[n1][n2].name2);
+        }
       }
     } else {
       $scope.teams[n1][n2].loss++;

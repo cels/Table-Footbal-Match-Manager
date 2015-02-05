@@ -98,15 +98,24 @@
           <td colspan="2" style="padding-left: 20px; text-align: left;">Number of goals</td>
           <td style="padding-right: 20px; text-align: right;">{{statistics.numOfGoals}}</td>
         </tr>
+
+        <!-- kill streaks -->
         <tr>
-          <td style="padding-left: 20px; text-align: left;">Longest killstreak (player) </td>
-          <td style="padding-left: 20px; text-align: left;">{{statistics.longestKillStreakPlayerName}}</td>
+          <td style="padding-left: 20px; text-align: left;">Longest killstreak (player)</td>
+          <td style="padding-left: 20px; text-align: left;"><div ng-repeat="player in statistics.longestKillStreakPlayerName">{{player}}</div></td>
           <td style="padding-right: 20px; text-align: right;">{{statistics.longestKillStreakPlayer}}</td>
         </tr>
         <tr>
-          <td style="padding-left: 20px; text-align: left;">Longest killstreak (team) </td>
-          <td style="padding-left: 20px; text-align: left;">{{statistics.longestKillStreakTeamName}}</td>
+          <td style="padding-left: 20px; text-align: left;">Longest killstreak (team)</td>
+          <td style="padding-left: 20px; text-align: left;"><div ng-repeat="team in statistics.longestKillStreakTeamName">{{team}}</div></td>
           <td style="padding-right: 20px; text-align: right;">{{statistics.longestKillStreakTeam}}</td>
+        </tr>
+
+        <!-- won by zero -->
+        <tr>
+          <td style="padding-left: 20px; text-align: left;">Destroyer (won by zero)</td>
+          <td style="padding-left: 20px; text-align: left;"><div ng-repeat="team in statistics.mostWonByZeroName">{{team}}</div></td>
+          <td style="padding-right: 20px; text-align: right;">{{statistics.mostWonByZero}}</td>
         </tr>
       </table>
     </div>
