@@ -260,9 +260,21 @@ var recalcStatistics = function() {
         }
       }
 
-      console.log(statistics)
+      var stat = new Statistics({
+        statistics: statistics,
+        teamStatistics: teamsArray,
+        playerStatistics: playersArray
+      });
 
-      return true;
+      stat.save(function(err) {
+        if(err) {
+          console.log("Internal Server Error: Error while saving statistics", err);
+          return false;
+        } else {
+          console.log("Successfully saved new statistics");
+          return true;
+        }
+      });
     }
   });
 };

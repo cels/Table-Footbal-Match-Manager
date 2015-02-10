@@ -43,11 +43,11 @@ var statisticsSchema = new Schema({
     }]
   },
   teamStatistics: [{
-    nameOne: {
+    name1: {
       type: String,
       required: true
     },
-    nameTwo: {
+    name2: {
       type: String,
       required: true
     },
@@ -155,3 +155,5 @@ var statisticsSchema = new Schema({
     }
   }]
 });
+
+module.exports = mongoose.model('Statistics', statisticsSchema);
