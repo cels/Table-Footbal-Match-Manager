@@ -8,7 +8,7 @@ var viewOptions = {
 var playerApi = require('./player-api');
 var teamApi = require('./team-api');
 var matchApi = require('./match-api');
-//statisticsAppi
+var statisticsApi = require('./statistics-api');
 
 module.exports = function(app) {
 
@@ -43,7 +43,7 @@ module.exports = function(app) {
       playerApi.deletePlayer(req, res);
     })
     .all(function(req, res) {
-      var msg = 'Only GET and PUT allowed';
+      var msg = 'Only GET, PUT and DELETE allowed';
       res.status(405).json({message: msg}).end();
       console.log(msg);
     });
@@ -80,12 +80,20 @@ module.exports = function(app) {
       matchApi.submitScore(req, res);
     })
     .all(function(req, res) {
-      var msg = 'Only POST allowed';
+      var msg = 'Only GET and POST allowed';
       res.status(405).json({message: msg}).end();
       console.log(msg);
     });
 
-  // statistics API
+  router.route('/statistics')
+    .get(function(req, res) {
+      statisticsApi.getStatistics(req, res);
+    })
+    .all(function(req, res) {
+      var msg = 'Only GET allowed';
+      res.status(405).json({message: msg}).end();
+      console.log(msg);
+    });
 
   // catch unknown APIs
   router.route('/')
