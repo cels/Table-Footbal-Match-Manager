@@ -36,5 +36,13 @@ kickerServices.factory('Match', function($http) {
       };
       return $http.post('/api/match', match);
     }
-  }
+  };
+});
+
+kickerServices.factory('Statistics', function($http) {
+  return {
+    getStatistics: function() {
+      return $http.get('/api/statistics');
+    }
+  };
 });
