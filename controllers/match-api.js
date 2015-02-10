@@ -57,7 +57,9 @@ var recalcStatistics = function() {
     longestKillStreakTeam: 0,
     longestKillStreakTeamNames: [],
     mostWonByZero: 0,
-    mostWonByZeroName: []
+    mostWonByZeroName: [],
+    mostLostByZero: 0,
+    mostLostByZeroName: []
   };
 
   var addPlayerData = function(player, goalsOwn, goalsEnemy) {
@@ -79,7 +81,8 @@ var recalcStatistics = function() {
           goalRate: 0,
           killStreak: 0,
           longestKillStreak: 0,
-          wonByZero: 0
+          wonByZero: 0,
+          lostByZero: 0
         };
       }
 
@@ -149,7 +152,8 @@ var recalcStatistics = function() {
         goalRate: 0,
         killStreak: 0,
         longestKillStreak: 0,
-        wonByZero: 0
+        wonByZero: 0,
+        lostByZero: 0
       };
     } else if(!teams[n1].hasOwnProperty(n2)) {
       teams[n1][n2] = {
@@ -167,7 +171,8 @@ var recalcStatistics = function() {
         goalRate: 0,
         killStreak: 0,
         longestKillStreak: 0,
-        wonByZero: 0
+        wonByZero: 0,
+        lostByZero: 0
       };
     }
 
@@ -210,6 +215,19 @@ var recalcStatistics = function() {
     } else {
       teams[n1][n2].loss++;
       teams[n1][n2].killStreak = 0;
+
+      if(goalsOwn === 0) {
+        teams[n1][n2].lostByZero++;
+
+        if(teams[n1][n2].lostByZero > statistics.mostLostByZero) {
+          statistics.mostLostByZero = teams[n1][n2].lostByZero;
+          statistics.mostLostByZeroName = [];
+          statistics.mostLostByZeroName.push(teams[n1][n2].name1 + " + " + teams[n1][n2].name2);
+        } else if(teams[n1][n2].lostByZero === statistics.mostLostByZero
+          && -1 === statistics.mostLostByZeroName.indexOf(teams[n1][n2])) {
+          statistics.mostLostByZeroName.push(teams[n1][n2].name1 + " + " + teams[n1][n2].name2);
+        }
+      }
     }
 
     teams[n1][n2].winPct = (teams[n1][n2].win / teams[n1][n2].games * 100);

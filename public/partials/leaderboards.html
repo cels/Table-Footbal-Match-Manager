@@ -91,6 +91,10 @@
           <th colspan="3">Beta!!!</th>
         </tr>
         <tr>
+          <td colspan="2" style="padding-left: 20px; text-align: left;">Last update</td>
+          <td style="padding-right: 20px; text-align: right;">{{lastUpdate}}</td>
+        </tr>
+        <tr>
           <td colspan="2" style="padding-left: 20px; text-align: left;">Number of matches</td>
           <td style="padding-right: 20px; text-align: right;">{{statistics.numOfGames}}</td>
         </tr>
@@ -111,11 +115,16 @@
           <td style="padding-right: 20px; text-align: right;">{{statistics.longestKillStreakTeam}}</td>
         </tr>
 
-        <!-- won by zero -->
+        <!-- won/lost by zero -->
         <tr>
           <td style="padding-left: 20px; text-align: left;">Destroyer (won by zero)</td>
           <td style="padding-left: 20px; text-align: left;"><div ng-repeat="team in statistics.mostWonByZeroName">{{team}}</div></td>
           <td style="padding-right: 20px; text-align: right;">{{statistics.mostWonByZero}}</td>
+        </tr>
+        <tr>
+          <td style="padding-left: 20px; text-align: left;">Biggest loser (lost by zero)</td>
+          <td style="padding-left: 20px; text-align: left;"><div ng-repeat="team in statistics.mostLostByZeroName">{{team}}</div></td>
+          <td style="padding-right: 20px; text-align: right;">{{statistics.mostLostByZero}}</td>
         </tr>
       </table>
     </div>

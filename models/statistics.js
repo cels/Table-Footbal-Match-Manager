@@ -40,6 +40,14 @@ var statisticsSchema = new Schema({
     mostWonByZeroName: [{
       type: String,
       required: true
+    }],
+    mostLostByZero: {
+      type: Number,
+      required: true
+    },
+    mostLostByZeroName: [{
+      type: String,
+      required: true
     }]
   },
   teamStatistics: [{
