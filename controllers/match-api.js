@@ -89,7 +89,12 @@ var recalcStatistics = function() {
       players[n].games++;
       players[n].goalsOwn += goalsOwn;
       players[n].goalsEnemy += goalsEnemy;
-      players[n].goalRate = players[n].goalsOwn / players[n].goalsEnemy;
+      if(players[n].goalsEnemy === 0) {
+        players[n].goalRate = 99999;
+      } else {
+        players[n].goalRate = players[n].goalsOwn / players[n].goalsEnemy;
+      }
+
 
       if(goalsOwn === goalsEnemy) {
         players[n].draw++;
@@ -179,7 +184,12 @@ var recalcStatistics = function() {
     teams[n1][n2].games++;
     teams[n1][n2].goalsOwn += goalsOwn;
     teams[n1][n2].goalsEnemy += goalsEnemy;
-    teams[n1][n2].goalRate = teams[n1][n2].goalsOwn / teams[n1][n2].goalsEnemy;
+
+    if(teams[n1][n2].goalsEnemy === 0) {
+      teams[n1][n2].goalRate = 99999;
+    } else {
+      teams[n1][n2].goalRate = teams[n1][n2].goalsOwn / teams[n1][n2].goalsEnemy;
+    }
 
     if(goalsOwn === goalsEnemy) {
       teams[n1][n2].draw++;

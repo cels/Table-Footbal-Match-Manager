@@ -90,8 +90,6 @@ kickerControllers.controller('MatchCtrl', function($scope, $http, Player, Match)
         goalsTeamTwo: $scope.goalsTeamTwo
       }
 
-      console.log(match)
-
       Match.submitScore(match)
       .success(function(data) {
         alert("Successfully submitted sore!");

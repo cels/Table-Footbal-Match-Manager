@@ -83,6 +83,10 @@ var statisticsSchema = new Schema({
       type: Number,
       required: true
     },
+    winPct: {
+      type: Number,
+      required: true
+    },
     goalsOwnPerGame: {
       type: Number,
       required: true
@@ -134,6 +138,10 @@ var statisticsSchema = new Schema({
       required: true
     },
     loss: {
+      type: Number,
+      required: true
+    },
+    winPct: {
       type: Number,
       required: true
     },
