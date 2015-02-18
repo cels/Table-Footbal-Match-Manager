@@ -210,6 +210,11 @@ kickerControllers.controller('LeaderboardsCtrl', function($scope, $http, $filter
       if(data.date) {
         $scope.lastUpdate = data.date;
       }
+
+      $scope.order('games', true);
+      $scope.order('winPct', true);
+      $scope.orderTeam('games', true);
+      $scope.orderTeam('winPct', true);
     })
     .error(function(data, status, headers, config) {
       alert("Error while getting statistics from server\nStatus: " + status);
